@@ -7,7 +7,7 @@ import { OrganizationAttachment } from '../models/db/relations/organization-atta
 import { UserAttachment } from '../models/db/relations/user-attachment.entity';
 import { AttachmentInput } from './models/attachment.input';
 
-@Resolver(of => Attachment)
+@Resolver(() => Attachment)
 export class AttachmentsResolver {
   constructor(
     @InjectRepository(Attachment)
@@ -33,7 +33,7 @@ export class AttachmentsResolver {
     return this.attachmentsRepository.save({...attachmentInput}); 
   }
 
-  @ResolveProperty('eventAttachment', () => [Attachment], { nullable: true})
+  @ResolveProperty('eventAttachment', () => [EventAttachment], { nullable: true})
   async getEventAttachment(@Parent() attachment) {
     const { id } = attachment;
     return this.eventAttachmentsRepository.findOne({ where: { attachmentId: id } });

@@ -15,7 +15,7 @@ export class UserAttachment {
   @PrimaryGeneratedColumn()
   @Field(type => ID)
   id: number;
-  @OneToOne(type => Attachment)
+  @OneToOne(type => Attachment, f => f.userAttachment)
   @JoinColumn()
   @Field(type => Attachment)
   attachment: Attachment;

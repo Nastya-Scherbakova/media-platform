@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { EventAttachment } from './relations/event-attachment.entity';
 import { EventOrganization } from './relations/event-organization.entity';
 import { EventUser } from './relations/event-user.entity';
-import { Field, ID, ObjectType, Int, GraphQLTimestamp } from 'type-graphql';
+import { Field, ID, ObjectType, Int, GraphQLTimestamp, registerEnumType } from 'type-graphql';
 
 @Entity()
 @ObjectType()
@@ -13,24 +13,24 @@ export class Event {
   @Column()
   @Field()
   name: string;
-  @Column({ name: 'additional_info' })
+  @Column({ name: 'additional_info', nullable: true })
   @Field({ nullable: true })
-  additionalInfo: string;
+  additionalInfo?: string;
   @Column()
-  @Field(type => Int)
+  @Field(type => EventType)
   type: EventType;
-  @Column({ name: 'cron_start' })
+  @Column({ name: 'cron_start', nullable: true })
   @Field({ nullable: true })
-  cronStart: string;
-  @Column({ name: 'cron_end' })
+  cronStart?: string;
+  @Column({ name: 'cron_end', nullable: true })
   @Field({ nullable: true })
-  cronEnd: string;
-  @Column({ name: 'date_start', type: 'timestamp with time zone' })
-  @Field(type => GraphQLTimestamp)
-  dateStart: Date;
-  @Column({ name: 'date_end', type: 'timestamp with time zone' })
-  @Field(type => GraphQLTimestamp)
-  dateEnd: Date;
+  cronEnd?: string;
+  @Column({ name: 'date_start', type: 'timestamp with time zone', nullable: true })
+  @Field()
+  dateStart?: Date;
+  @Column({ name: 'date_end', type: 'timestamp with time zone', nullable: true })
+  @Field()
+  dateEnd?: Date;
   @Column()
   @Field(type => Int)
   completleness: number = 0;
@@ -58,3 +58,7 @@ export enum EventType {
   Recurring,
   OneTime,
 }
+
+registerEnumType(EventType, {
+  name: "EventType"
+});

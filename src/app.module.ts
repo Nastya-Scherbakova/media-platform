@@ -3,13 +3,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { EventsModule } from './events/events.module';
 import { AttachmentsModule } from './attachments/attachments.module';
 import { RolesModule } from './roles/roles.module';
+import { RelationsModule } from './relations/relations.module';
+import { SharedModule } from './shared/shared.module';
 import configuration from './config/app.config';
 
 const AppConfigModule = ConfigModule.forRoot({
@@ -36,8 +36,8 @@ const AppConfigModule = ConfigModule.forRoot({
     EventsModule,
     AttachmentsModule,
     RolesModule,
+    RelationsModule,
+    SharedModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

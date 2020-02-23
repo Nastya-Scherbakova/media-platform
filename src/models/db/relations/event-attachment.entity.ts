@@ -15,7 +15,7 @@ export class EventAttachment {
   @PrimaryGeneratedColumn()
   @Field(type => ID)
   id: number;
-  @OneToOne(type => Attachment)
+  @OneToOne(type => Attachment, f => f.eventAttachment)
   @JoinColumn()
   @Field(type => Attachment)
   attachment: Promise<Attachment>;
