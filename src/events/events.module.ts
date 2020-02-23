@@ -4,6 +4,6 @@ import { SharedModule } from '../shared/shared.module';
 
 @Module({
   imports: [SharedModule],
-  providers: [EventsResolver]
+  providers: [EventsResolver],
 })
 export class EventsModule {}

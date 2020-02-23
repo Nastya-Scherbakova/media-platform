@@ -1,9 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  BeforeInsert,
+} from 'typeorm';
 import { UserAttachment } from './relations/user-attachment.entity';
 import { OrganizationUser } from './relations/organization-user.entity';
 import { EventUser } from './relations/event-user.entity';
 import { Field, ID, ObjectType } from 'type-graphql';
 import { UserRole } from './relations/user-role.entity';
+import * as bcrypt from 'bcrypt';
 
 @Entity()
 @ObjectType()
@@ -17,6 +24,11 @@ export class User {
   @Column({ name: 'last_name' })
   @Field({ nullable: true })
   lastName: string;
+  @Column()
+  @Field()
+  email: string;
+  @Column()
+  password: string;
   @Column()
   @Field({ nullable: true })
   about: string;
@@ -44,4 +56,13 @@ export class User {
   )
   @Field(type => [EventUser])
   userEvents: Promise<EventUser[]>;
+
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
+
+  async comparePassword(attempt: string): Promise<boolean> {
+    return await bcrypt.compare(attempt, this.password);
+  }
 }

@@ -15,14 +15,17 @@ export class UserAttachment {
   @PrimaryGeneratedColumn()
   @Field(type => ID)
   id: number;
-  @OneToOne(type => Attachment, f => f.userAttachment)
+  @OneToOne(
+    type => Attachment,
+    f => f.userAttachment,
+  )
   @JoinColumn()
   @Field(type => Attachment)
-  attachment: Attachment;
+  attachment: Promise<Attachment>;
   @ManyToOne(
     type => User,
     user => user.userAttachments,
   )
   @Field(type => User)
-  user: User;
+  user: Promise<User>;
 }

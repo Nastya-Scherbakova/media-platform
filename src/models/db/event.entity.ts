@@ -2,7 +2,14 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { EventAttachment } from './relations/event-attachment.entity';
 import { EventOrganization } from './relations/event-organization.entity';
 import { EventUser } from './relations/event-user.entity';
-import { Field, ID, ObjectType, Int, GraphQLTimestamp, registerEnumType } from 'type-graphql';
+import {
+  Field,
+  ID,
+  ObjectType,
+  Int,
+  GraphQLTimestamp,
+  registerEnumType,
+} from 'type-graphql';
 
 @Entity()
 @ObjectType()
@@ -25,10 +32,18 @@ export class Event {
   @Column({ name: 'cron_end', nullable: true })
   @Field({ nullable: true })
   cronEnd?: string;
-  @Column({ name: 'date_start', type: 'timestamp with time zone', nullable: true })
+  @Column({
+    name: 'date_start',
+    type: 'timestamp with time zone',
+    nullable: true,
+  })
   @Field()
   dateStart?: Date;
-  @Column({ name: 'date_end', type: 'timestamp with time zone', nullable: true })
+  @Column({
+    name: 'date_end',
+    type: 'timestamp with time zone',
+    nullable: true,
+  })
   @Field()
   dateEnd?: Date;
   @Column()
@@ -60,5 +75,5 @@ export enum EventType {
 }
 
 registerEnumType(EventType, {
-  name: "EventType"
+  name: 'EventType',
 });

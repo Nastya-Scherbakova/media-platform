@@ -1,7 +1,7 @@
 import { InputType, Field } from 'type-graphql';
 
 @InputType()
-export class AttachmentInput {
+export class RoleInput {
   @Field()
-  link: string;
+  name: string;
 }

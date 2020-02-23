@@ -13,6 +13,9 @@ export class Organization {
   @Column()
   @Field()
   name: string;
+  @Column()
+  @Field()
+  mainImageLink: string;
   @OneToMany(
     type => OrganizationUser,
     userOrg => userOrg.organization,

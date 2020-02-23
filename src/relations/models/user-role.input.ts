@@ -1,9 +1,9 @@
 import { InputType, Field, Int } from 'type-graphql';
 
 @InputType()
-export class EventAttachmentInput {
+export class UserRoleInput {
   @Field(() => Int)
-  eventId: number;
+  userId: number;
   @Field(() => Int)
-  attachmentId: number;
+  roleId: number;
 }

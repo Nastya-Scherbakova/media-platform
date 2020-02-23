@@ -4,8 +4,6 @@ import { SharedModule } from '../shared/shared.module';
 
 @Module({
   imports: [SharedModule],
-  providers: [
-    AttachmentsResolver
-  ]
+  providers: [AttachmentsResolver],
 })
-export class AttachmentsModule { }
+export class AttachmentsModule {}

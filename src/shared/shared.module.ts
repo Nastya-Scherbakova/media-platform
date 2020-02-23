@@ -14,21 +14,39 @@ import { EventUser } from '../models/db/relations/event-user.entity';
 import { Event } from '../models/db/event.entity';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([
-            Attachment, User, UserRole, Role,
-            Event, Organization, EventAttachment,
-            UserAttachment, OrganizationAttachment,
-            UserRole, EventOrganization, OrganizationUser, EventUser
-        ])
-    ],
-    exports: [
-        TypeOrmModule.forFeature([
-            Attachment, User, UserRole, Role,
-            Event, Organization, EventAttachment,
-            UserAttachment, OrganizationAttachment,
-            UserRole, EventOrganization, OrganizationUser, EventUser
-        ])
-    ]
+  imports: [
+    TypeOrmModule.forFeature([
+      Attachment,
+      User,
+      UserRole,
+      Role,
+      Event,
+      Organization,
+      EventAttachment,
+      UserAttachment,
+      OrganizationAttachment,
+      UserRole,
+      EventOrganization,
+      OrganizationUser,
+      EventUser,
+    ]),
+  ],
+  exports: [
+    TypeOrmModule.forFeature([
+      Attachment,
+      User,
+      UserRole,
+      Role,
+      Event,
+      Organization,
+      EventAttachment,
+      UserAttachment,
+      OrganizationAttachment,
+      UserRole,
+      EventOrganization,
+      OrganizationUser,
+      EventUser,
+    ]),
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

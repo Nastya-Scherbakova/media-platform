@@ -15,14 +15,17 @@ export class OrganizationAttachment {
   @PrimaryGeneratedColumn()
   @Field(type => ID)
   id: number;
-  @OneToOne(type => Attachment, f => f.organizationAttachment)
+  @OneToOne(
+    type => Attachment,
+    f => f.organizationAttachment,
+  )
   @JoinColumn()
   @Field(type => Attachment)
-  attachment: Attachment;
+  attachment: Promise<Attachment>;
   @ManyToOne(
     type => Organization,
     org => org.organizationAttachments,
   )
   @Field(type => Organization)
-  organization: Organization;
+  organization: Promise<Organization>;
 }

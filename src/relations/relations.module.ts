@@ -10,6 +10,14 @@ import { SharedModule } from '../shared/shared.module';
 
 @Module({
   imports: [SharedModule],
-  providers: [UserAttachmentsResolver, OrganizationAttachmentsResolver, EventAttachmentsResolver, EventOrganizationsResolver, EventUsersResolver, OrganizationUsersResolver, UserRolesResolver]
+  providers: [
+    UserAttachmentsResolver,
+    OrganizationAttachmentsResolver,
+    EventAttachmentsResolver,
+    EventOrganizationsResolver,
+    EventUsersResolver,
+    OrganizationUsersResolver,
+    UserRolesResolver,
+  ],
 })
 export class RelationsModule {}
