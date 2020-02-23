@@ -14,6 +14,9 @@ import { OrganizationUser } from '../models/db/relations/organization-user.entit
 import { EventUser } from '../models/db/relations/event-user.entity';
 import { UserAttachment } from '../models/db/relations/user-attachment.entity';
 import { UserInput } from './models/user.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../shared/guards/auth.guard';
+import { Roles } from '../shared/decorators/decorators';
 
 @Resolver(of => User)
 export class UsersResolver {
@@ -36,6 +39,8 @@ export class UsersResolver {
   }
 
   @Mutation(returns => User)
+  @UseGuards(GqlAuthGuard)
+  @Roles('admin')
   async createUser(@Args('userInput') userInput: UserInput) {
     return this.usersRepository.save({ ...userInput });
   }

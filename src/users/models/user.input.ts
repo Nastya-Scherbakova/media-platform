@@ -1,5 +1,5 @@
 import { InputType, Field } from 'type-graphql';
-import { MaxLength, Length } from 'class-validator';
+import { MaxLength, Length, IsEmail } from 'class-validator';
 
 @InputType()
 export class UserInput {
@@ -11,6 +11,7 @@ export class UserInput {
   about: string;
   @Field()
   @MaxLength(255)
+  @IsEmail()
   email: string;
   @Field()
   @Length(8, 255)

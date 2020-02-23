@@ -12,6 +12,7 @@ import { Repository } from 'typeorm';
 import { Role } from '../models/db/role.entity';
 import { User } from '../models/db/user.entity';
 import { UserRoleInput } from './models/user-role.input';
+import { Roles } from '../shared/decorators/decorators';
 
 @Resolver(() => UserRole)
 export class UserRolesResolver {
@@ -30,6 +31,7 @@ export class UserRolesResolver {
   }
 
   @Mutation(returns => UserRole)
+  @Roles('admin')
   async createUserRole(@Args('userRoleInput') userRoleInput: UserRoleInput) {
     let role = this.rolesRepository.findOne(userRoleInput.roleId);
     const user = this.usersRepository.findOne(userRoleInput.userId);

@@ -14,6 +14,7 @@ import { OrganizationUser } from '../models/db/relations/organization-user.entit
 import { EventUser } from '../models/db/relations/event-user.entity';
 import { EventOrganization } from '../models/db/relations/event-organization.entity';
 import { RoleInput } from './models/role.input';
+import { Roles } from '../shared/decorators/decorators';
 
 @Resolver(of => Role)
 export class RolesResolver {
@@ -38,6 +39,7 @@ export class RolesResolver {
   }
 
   @Mutation(returns => Role)
+  @Roles('admin')
   async createRole(@Args('roleInput') roleInput: RoleInput) {
     return this.rolesRepository.save({ ...roleInput });
   }

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
+import { APP_GUARD } from '@nestjs/core';
 
 import { UsersModule } from './users/users.module';
 import { OrganizationsModule } from './organizations/organizations.module';
@@ -11,6 +12,7 @@ import { RolesModule } from './roles/roles.module';
 import { RelationsModule } from './relations/relations.module';
 import { SharedModule } from './shared/shared.module';
 import configuration from './config/app.config';
+import { RolesGuard } from './shared/guards/roles.guard';
 
 const AppConfigModule = ConfigModule.forRoot({
   load: [configuration],
@@ -38,6 +40,12 @@ const AppConfigModule = ConfigModule.forRoot({
     RolesModule,
     RelationsModule,
     SharedModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
   ],
 })
 export class AppModule {}
