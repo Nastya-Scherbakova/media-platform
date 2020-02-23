@@ -33,7 +33,7 @@ export class Event {
   dateEnd: Date;
   @Column()
   @Field(type => Int)
-  completleness = 0;
+  completleness: number = 0;
   @OneToMany(
     type => EventUser,
     eventUser => eventUser.event,

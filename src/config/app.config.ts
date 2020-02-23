@@ -4,6 +4,6 @@ export default () => ({
     type: process.env.DATABASE_TYPE || 'postgres',
     url:
       process.env.DATABASE_URL ||
-      'postgresql://postgres:postgres@127.0.0.1:5432/postgres',
+      'postgresql://postgres:postgres@localhost:5432/mediaplatform',
   },
 });

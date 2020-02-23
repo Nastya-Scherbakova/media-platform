@@ -11,15 +11,15 @@ export class Attachment {
   @Field(type => ID)
   id: number;
   @Column()
-  @Field()
+  @Field(type=> String)
   link: string;
   @OneToOne(type => EventAttachment)
-  @Field(type => EventAttachment)
-  eventAttachment: Promise<EventAttachment>;
+  @Field(type => [EventAttachment], {nullable: true})
+  eventAttachment?: Promise<EventAttachment>;
   @OneToOne(type => OrganizationAttachment)
-  @Field(type => OrganizationAttachment)
-  organizationAttachment: Promise<OrganizationAttachment>;
+  @Field(type => [OrganizationAttachment], {nullable: true})
+  organizationAttachment?: Promise<OrganizationAttachment>;
   @OneToOne(type => UserAttachment)
-  @Field(type => UserAttachment)
-  userAttachment: Promise<UserAttachment>;
+  @Field(type => [UserAttachment], {nullable: true})
+  userAttachment?: Promise<UserAttachment>;
 }

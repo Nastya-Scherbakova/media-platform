@@ -29,9 +29,7 @@ const AppConfigModule = ConfigModule.forRoot({
       inject: [ConfigService],
     }),
     GraphQLModule.forRoot({
-      autoSchemaFile: 'schema.gql',
-      debug: false,
-      playground: false,
+      autoSchemaFile: true,
     }),
     UsersModule,
     OrganizationsModule,
