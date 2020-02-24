@@ -33,20 +33,22 @@ export class UserRolesResolver {
   @Mutation(returns => UserRole)
   @Roles('admin')
   async createUserRole(@Args('userRoleInput') userRoleInput: UserRoleInput) {
-    let role = this.rolesRepository.findOne(userRoleInput.roleId);
-    const user = this.usersRepository.findOne(userRoleInput.userId);
+    let role = await this.rolesRepository.findOne(userRoleInput.roleId);
+    const user = await this.usersRepository.findOne(userRoleInput.userId);
     return this.userRolesRepository.save({ role, user });
   }
 
   @ResolveProperty('role', () => Role)
   async getRole(@Parent() userRole) {
-    const { roleId } = userRole;
-    return this.rolesRepository.findOne(roleId);
+    const { id } = userRole;
+    return (await this.userRolesRepository.findOne(id, { relations: ['role'] }))
+      .role;
   }
 
   @ResolveProperty('user', () => User)
   async getUser(@Parent() userRole) {
-    const { userId } = userRole;
-    return this.usersRepository.findOne(userId);
+    const { id } = userRole;
+    return (await this.userRolesRepository.findOne(id, { relations: ['user'] }))
+      .user;
   }
 }

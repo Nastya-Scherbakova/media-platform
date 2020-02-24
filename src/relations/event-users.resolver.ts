@@ -36,26 +36,32 @@ export class EventUsersResolver {
   async createEventUser(
     @Args('eventUserInput') eventUserInput: EventUserInput,
   ) {
-    let user = this.usersRepository.findOne(eventUserInput.userId);
-    const event = this.eventsRepository.findOne(eventUserInput.eventId);
+    let user = await this.usersRepository.findOne(eventUserInput.userId);
+    const event = await this.eventsRepository.findOne(eventUserInput.eventId);
     return this.eventUsersRepository.save({ user, event });
   }
 
   @ResolveProperty('user', () => User)
   async getUser(@Parent() eventUser) {
-    const { userId } = eventUser;
-    return this.usersRepository.findOne(userId);
+    const { id } = eventUser;
+    return (
+      await this.eventUsersRepository.findOne(id, { relations: ['user'] })
+    ).user;
   }
 
   @ResolveProperty('event', () => Event)
   async getEvent(@Parent() eventUser) {
-    const { eventId } = eventUser;
-    return this.eventsRepository.findOne(eventId);
+    const { id } = eventUser;
+    return (
+      await this.eventUsersRepository.findOne(id, { relations: ['event'] })
+    ).event;
   }
 
   @ResolveProperty('role', () => [Role])
   async getRole(@Parent() eventUser) {
-    const { roleId } = eventUser;
-    return this.rolesRepository.findOne(roleId);
+    const { id } = eventUser;
+    return (
+      await this.eventUsersRepository.findOne(id, { relations: ['role'] })
+    ).role;
   }
 }

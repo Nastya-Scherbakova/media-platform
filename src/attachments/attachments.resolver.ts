@@ -48,7 +48,7 @@ export class AttachmentsResolver {
   async getEventAttachment(@Parent() attachment) {
     const { id } = attachment;
     return this.eventAttachmentsRepository.findOne({
-      where: { attachmentId: id },
+      where: { attachment: { id } },
     });
   }
 
@@ -58,7 +58,7 @@ export class AttachmentsResolver {
   async getOrganizationAttachment(@Parent() attachment) {
     const { id } = attachment;
     return this.organizationAttachmentsRepository.findOne({
-      where: { attachmentId: id },
+      where: { attachment: { id } },
     });
   }
 
@@ -66,7 +66,7 @@ export class AttachmentsResolver {
   async getUserAttachment(@Parent() attachment) {
     const { id } = attachment;
     return this.userAttachmentsRepository.findOne({
-      where: { attachmentId: id },
+      where: { attachment: { id } },
     });
   }
 }

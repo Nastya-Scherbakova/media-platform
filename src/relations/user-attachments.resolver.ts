@@ -33,22 +33,28 @@ export class UserAttachmentsResolver {
   async createUserAttachment(
     @Args('userAttachmentInput') userAttachmentInput: UserAttachmentInput,
   ) {
-    let attachment = this.attachmentsRepository.findOne(
+    let attachment = await this.attachmentsRepository.findOne(
       userAttachmentInput.attachmentId,
     );
-    const user = this.usersRepository.findOne(userAttachmentInput.userId);
+    const user = await this.usersRepository.findOne(userAttachmentInput.userId);
     return this.userAttachmentsRepository.save({ attachment, user });
   }
 
   @ResolveProperty('attachment', () => [Attachment])
   async getAttachment(@Parent() userAttachment) {
-    const { attachmentId } = userAttachment;
-    return this.attachmentsRepository.findOne(attachmentId);
+    const { id } = userAttachment;
+    return (
+      await this.userAttachmentsRepository.findOne(id, {
+        relations: ['attachment'],
+      })
+    ).attachment;
   }
 
   @ResolveProperty('user', () => [User])
   async getUser(@Parent() userAttachment) {
-    const { userId } = userAttachment;
-    return this.usersRepository.findOne(userId);
+    const { id } = userAttachment;
+    return (
+      await this.userAttachmentsRepository.findOne(id, { relations: ['user'] })
+    ).user;
   }
 }

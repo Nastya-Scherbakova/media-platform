@@ -3,7 +3,7 @@ export default () => ({
   jwtSecret: process.env.JWT_SECRET || 'test',
   seed: {
     email: process.env.SEED_EMAIL,
-    password: process.env.SEED_PASSWORD
+    password: process.env.SEED_PASSWORD,
   },
   database: {
     type: process.env.DATABASE_TYPE || 'postgres',

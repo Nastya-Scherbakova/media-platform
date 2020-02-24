@@ -21,17 +21,17 @@ export class Organization {
     userOrg => userOrg.organization,
   )
   @Field(type => [OrganizationUser])
-  organizationUsers: Promise<OrganizationUser[]>;
+  organizationUsers: OrganizationUser[];
   @OneToMany(
     type => EventOrganization,
     orgEvent => orgEvent.organization,
   )
   @Field(type => [EventOrganization])
-  organizationEvents: Promise<EventOrganization[]>;
+  organizationEvents: EventOrganization[];
   @OneToMany(
     type => OrganizationAttachment,
     orgAtt => orgAtt.organization,
   )
   @Field(type => [OrganizationAttachment])
-  organizationAttachments: Promise<OrganizationAttachment[]>;
+  organizationAttachments: OrganizationAttachment[];
 }

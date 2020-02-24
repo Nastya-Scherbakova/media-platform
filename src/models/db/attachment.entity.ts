@@ -15,11 +15,11 @@ export class Attachment {
   link: string;
   @OneToOne(type => EventAttachment)
   @Field(type => [EventAttachment], { nullable: true })
-  eventAttachment?: Promise<EventAttachment>;
+  eventAttachment?: EventAttachment;
   @OneToOne(type => OrganizationAttachment)
   @Field(type => [OrganizationAttachment], { nullable: true })
-  organizationAttachment?: Promise<OrganizationAttachment>;
+  organizationAttachment?: OrganizationAttachment;
   @OneToOne(type => UserAttachment)
   @Field(type => [UserAttachment], { nullable: true })
-  userAttachment?: Promise<UserAttachment>;
+  userAttachment?: UserAttachment;
 }

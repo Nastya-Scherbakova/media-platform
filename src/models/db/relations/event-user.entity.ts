@@ -21,17 +21,17 @@ export class EventUser {
     role => role.userEvents,
   )
   @Field(type => Role)
-  role: Promise<Role>;
+  role: Role;
   @ManyToOne(
     type => Event,
     event => event.eventUsers,
   )
   @Field(type => Event)
-  event: Promise<Event>;
+  event: Event;
   @ManyToOne(
     type => User,
     user => user.userEvents,
   )
   @Field(type => User)
-  user: Promise<User>;
+  user: User;
 }

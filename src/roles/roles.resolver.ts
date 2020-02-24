@@ -47,24 +47,24 @@ export class RolesResolver {
   @ResolveProperty('userRoles', () => [UserRole])
   async getUserRoles(@Parent() role) {
     const { id } = role;
-    return this.userRolesRepository.find({ where: { roleId: id } });
+    return this.userRolesRepository.find({ where: { role: { id } } });
   }
 
   @ResolveProperty('userEvents', () => [EventUser])
   async getEventUser(@Parent() role) {
     const { id } = role;
-    return this.userEventsRepository.find({ where: { roleId: id } });
+    return this.userEventsRepository.find({ where: { role: { id } } });
   }
 
   @ResolveProperty('eventOrganizations', () => [EventOrganization])
   async getEventOrganization(@Parent() role) {
     const { id } = role;
-    return this.eventOrganizationsRepository.find({ where: { roleId: id } });
+    return this.eventOrganizationsRepository.find({ where: { role: { id } } });
   }
 
   @ResolveProperty('organizationUsers', () => [OrganizationUser])
   async getOrganizationUser(@Parent() role) {
     const { id } = role;
-    return this.organizationUsersRepository.find({ where: { roleId: id } });
+    return this.organizationUsersRepository.find({ where: { role: { id } } });
   }
 }

@@ -39,28 +39,42 @@ export class EventOrganizationsResolver {
     @Args('eventOrganizationInput')
     eventOrganizationInput: EventOrganizationInput,
   ) {
-    let org = this.organizationsRepository.findOne(
+    let org = await this.organizationsRepository.findOne(
       eventOrganizationInput.organizationId,
     );
-    const event = this.eventsRepository.findOne(eventOrganizationInput.eventId);
+    const event = await this.eventsRepository.findOne(
+      eventOrganizationInput.eventId,
+    );
     return this.eventOrganizationsRepository.save({ organization: org, event });
   }
 
   @ResolveProperty('organization', () => Organization)
   async getOrganization(@Parent() eventOrganization) {
-    const { organizationId } = eventOrganization;
-    return this.organizationsRepository.findOne(organizationId);
+    const { id } = eventOrganization;
+    return (
+      await this.eventOrganizationsRepository.findOne(id, {
+        relations: ['organization'],
+      })
+    ).organization;
   }
 
   @ResolveProperty('event', () => Event)
   async getEvent(@Parent() eventOrganization) {
-    const { eventId } = eventOrganization;
-    return this.eventsRepository.findOne(eventId);
+    const { id } = eventOrganization;
+    return (
+      await this.eventOrganizationsRepository.findOne(id, {
+        relations: ['event'],
+      })
+    ).event;
   }
 
   @ResolveProperty('role', () => [Role])
   async getRole(@Parent() eventOrganization) {
-    const { roleId } = eventOrganization;
-    return this.rolesRepository.findOne(roleId);
+    const { id } = eventOrganization;
+    return (
+      await this.eventOrganizationsRepository.findOne(id, {
+        relations: ['role'],
+      })
+    ).role;
   }
 }

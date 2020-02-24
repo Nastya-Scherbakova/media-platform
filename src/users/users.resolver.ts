@@ -48,24 +48,24 @@ export class UsersResolver {
   @ResolveProperty('userRoles', () => [UserRole])
   async getUserRoles(@Parent() user) {
     const { id } = user;
-    return this.userRolesRepository.find({ where: { userId: id } });
+    return this.userRolesRepository.find({ where: { user: { id } } });
   }
 
   @ResolveProperty('userEvents', () => [EventUser])
   async getEventUser(@Parent() user) {
     const { id } = user;
-    return this.userEventsRepository.find({ where: { userId: id } });
+    return this.userEventsRepository.find({ where: { user: { id } } });
   }
 
   @ResolveProperty('userAttachments', () => [UserAttachment])
   async getUserAttachment(@Parent() user) {
     const { id } = user;
-    return this.userAttachmentsRepository.find({ where: { userId: id } });
+    return this.userAttachmentsRepository.find({ where: { user: { id } } });
   }
 
   @ResolveProperty('organizationUsers', () => [OrganizationUser])
   async getOrganizationUser(@Parent() user) {
     const { id } = user;
-    return this.organizationUsersRepository.find({ where: { userId: id } });
+    return this.organizationUsersRepository.find({ where: { user: { id } } });
   }
 }

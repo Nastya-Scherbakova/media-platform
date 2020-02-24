@@ -1,10 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-  ManyToOne,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { User } from '../user.entity';
 import { Role } from '../role.entity';
 import { Field, ID, ObjectType } from 'type-graphql';
@@ -20,11 +14,11 @@ export class UserRole {
     role => role.userRoles,
   )
   @Field(type => Role)
-  role: Promise<Role>;
+  role: Role;
   @ManyToOne(
     type => User,
     user => user.userRoles,
   )
   @Field(type => User)
-  user: Promise<User>;
+  user: User;
 }

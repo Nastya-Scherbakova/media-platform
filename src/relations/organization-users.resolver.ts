@@ -36,8 +36,8 @@ export class OrganizationUsersResolver {
   async createOrganizationUser(
     @Args('organizationUserInput') organizationUserInput: OrganizationUserInput,
   ) {
-    let user = this.usersRepository.findOne(organizationUserInput.userId);
-    const organization = this.organizationsRepository.findOne(
+    let user = await this.usersRepository.findOne(organizationUserInput.userId);
+    const organization = await this.organizationsRepository.findOne(
       organizationUserInput.organizationId,
     );
     return this.userOrganizationsRepository.save({ user, organization });
@@ -45,19 +45,31 @@ export class OrganizationUsersResolver {
 
   @ResolveProperty('organization', () => Organization)
   async getOrganization(@Parent() userOrganization) {
-    const { organizationId } = userOrganization;
-    return this.organizationsRepository.findOne(organizationId);
+    const { id } = userOrganization;
+    return (
+      await this.userOrganizationsRepository.findOne(id, {
+        relations: ['organization'],
+      })
+    ).organization;
   }
 
   @ResolveProperty('user', () => User)
   async getUser(@Parent() userOrganization) {
-    const { userId } = userOrganization;
-    return this.usersRepository.findOne(userId);
+    const { id } = userOrganization;
+    return (
+      await this.userOrganizationsRepository.findOne(id, {
+        relations: ['user'],
+      })
+    ).user;
   }
 
   @ResolveProperty('role', () => [Role])
   async getRole(@Parent() userOrganization) {
-    const { roleId } = userOrganization;
-    return this.rolesRepository.findOne(roleId);
+    const { id } = userOrganization;
+    return (
+      await this.userOrganizationsRepository.findOne(id, {
+        relations: ['role'],
+      })
+    ).role;
   }
 }

@@ -21,17 +21,17 @@ export class OrganizationUser {
     role => role.organizationUsers,
   )
   @Field(type => Role)
-  role: Promise<Role>;
+  role: Role;
   @ManyToOne(
     type => User,
     user => user.userOrganizations,
   )
   @Field(type => User)
-  user: Promise<User>;
+  user: User;
   @ManyToOne(
     type => Organization,
     org => org.organizationUsers,
   )
   @Field(type => Organization)
-  organization: Promise<Organization>;
+  organization: Organization;
 }

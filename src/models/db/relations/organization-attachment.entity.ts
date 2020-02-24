@@ -21,11 +21,11 @@ export class OrganizationAttachment {
   )
   @JoinColumn()
   @Field(type => Attachment)
-  attachment: Promise<Attachment>;
+  attachment: Attachment;
   @ManyToOne(
     type => Organization,
     org => org.organizationAttachments,
   )
   @Field(type => Organization)
-  organization: Promise<Organization>;
+  organization: Organization;
 }

@@ -42,18 +42,18 @@ export class EventsResolver {
   @ResolveProperty('eventAttachments', () => [EventAttachment])
   async getEventAttachments(@Parent() event) {
     const { id } = event;
-    return this.eventAttachmentsRepository.find({ where: { eventId: id } });
+    return this.eventAttachmentsRepository.find({ where: { event: { id } } });
   }
 
   @ResolveProperty('eventUsers', () => [EventUser])
   async getEventUsers(@Parent() event) {
     const { id } = event;
-    return this.eventUsersRepository.find({ where: { eventId: id } });
+    return this.eventUsersRepository.find({ where: { event: { id } } });
   }
 
   @ResolveProperty('eventOrganizations', () => [EventOrganization])
   async getEventOrganizations(@Parent() event) {
     const { id } = event;
-    return this.eventOrganizationsRepository.find({ where: { eventId: id } });
+    return this.eventOrganizationsRepository.find({ where: { event: { id } } });
   }
 }

@@ -25,23 +25,23 @@ export class Role {
     r => r.role,
   )
   @Field(type => EventOrganization)
-  eventOrganizations: Promise<EventOrganization[]>;
+  eventOrganizations: EventOrganization[];
   @OneToMany(
     type => EventUser,
     r => r.role,
   )
   @Field(type => EventUser)
-  userEvents: Promise<EventUser[]>;
+  userEvents: EventUser[];
   @OneToMany(
     type => OrganizationUser,
     r => r.role,
   )
   @Field(type => OrganizationUser)
-  organizationUsers: Promise<OrganizationUser[]>;
+  organizationUsers: OrganizationUser[];
   @OneToMany(
     type => UserRole,
     r => r.role,
   )
   @Field(type => UserRole)
-  userRoles: Promise<UserRole[]>;
+  userRoles: UserRole[];
 }

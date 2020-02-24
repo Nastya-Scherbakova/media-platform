@@ -47,7 +47,7 @@ export class OrganizationsResolver {
   async getOrganizationUsers(@Parent() organization) {
     const { id } = organization;
     return this.userOrganizationsRepository.find({
-      where: { organizationId: id },
+      where: { organization: { id } },
     });
   }
 
@@ -55,7 +55,7 @@ export class OrganizationsResolver {
   async getEventOrganizations(@Parent() organization) {
     const { id } = organization;
     return this.organizationEventsRepository.find({
-      where: { organizationId: id },
+      where: { organization: { id } },
     });
   }
 
@@ -63,7 +63,7 @@ export class OrganizationsResolver {
   async getOrganizationAttachments(@Parent() organization) {
     const { id } = organization;
     return this.organizationAttachmentsRepository.find({
-      where: { organizationId: id },
+      where: { organization: { id } },
     });
   }
 }

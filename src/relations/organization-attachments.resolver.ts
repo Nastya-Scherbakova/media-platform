@@ -36,10 +36,10 @@ export class OrganizationAttachmentsResolver {
     @Args('organizationAttachmentInput')
     organizationAttachmentInput: OrganizationAttachmentInput,
   ) {
-    let attachment = this.attachmentsRepository.findOne(
+    let attachment = await this.attachmentsRepository.findOne(
       organizationAttachmentInput.attachmentId,
     );
-    const organization = this.organizationsRepository.findOne(
+    const organization = await this.organizationsRepository.findOne(
       organizationAttachmentInput.organizationId,
     );
     return this.organizationAttachmentsRepository.save({
@@ -50,13 +50,21 @@ export class OrganizationAttachmentsResolver {
 
   @ResolveProperty('attachment', () => Attachment)
   async getAttachment(@Parent() organizationAttachment) {
-    const { attachmentId } = organizationAttachment;
-    return this.attachmentsRepository.findOne(attachmentId);
+    const { id } = organizationAttachment;
+    return (
+      await this.organizationAttachmentsRepository.findOne(id, {
+        relations: ['attachment'],
+      })
+    ).attachment;
   }
 
   @ResolveProperty('organization', () => Organization)
   async getOrganization(@Parent() organizationAttachment) {
-    const { organizationId } = organizationAttachment;
-    return this.organizationsRepository.findOne(organizationId);
+    const { id } = organizationAttachment;
+    return (
+      await this.organizationAttachmentsRepository.findOne(id, {
+        relations: ['organization'],
+      })
+    ).organization;
   }
 }

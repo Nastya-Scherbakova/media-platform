@@ -29,7 +29,7 @@ export class User {
   email: string;
   @Column()
   password: string;
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   @Field({ nullable: true })
   about: string;
   @OneToMany(
@@ -37,25 +37,25 @@ export class User {
     userRole => userRole.user,
   )
   @Field(type => [UserRole])
-  userRoles: Promise<UserRole[]>;
+  userRoles: UserRole[];
   @OneToMany(
     type => UserAttachment,
     userAtt => userAtt.user,
   )
   @Field(type => [UserAttachment])
-  userAttachments: Promise<UserAttachment[]>;
+  userAttachments: UserAttachment[];
   @OneToMany(
     type => OrganizationUser,
     userOrg => userOrg.user,
   )
   @Field(type => [OrganizationUser])
-  userOrganizations: Promise<OrganizationUser[]>;
+  userOrganizations: OrganizationUser[];
   @OneToMany(
     type => EventUser,
     userEvent => userEvent.user,
   )
   @Field(type => [EventUser])
-  userEvents: Promise<EventUser[]>;
+  userEvents: EventUser[];
 
   @BeforeInsert()
   async hashPassword() {

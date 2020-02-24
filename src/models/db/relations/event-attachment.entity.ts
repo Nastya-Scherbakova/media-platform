@@ -21,11 +21,11 @@ export class EventAttachment {
   )
   @JoinColumn()
   @Field(type => Attachment)
-  attachment: Promise<Attachment>;
+  attachment: Attachment;
   @ManyToOne(
     type => Event,
     event => event.eventAttachments,
   )
   @Field(type => Event)
-  event: Promise<Event>;
+  event: Event;
 }
