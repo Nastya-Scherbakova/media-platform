@@ -20,6 +20,7 @@ const AppConfigModule = ConfigModule.forRoot({
 
 @Module({
   imports: [
+    AppConfigModule,
     TypeOrmModule.forRootAsync({
       imports: [AppConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -31,7 +32,12 @@ const AppConfigModule = ConfigModule.forRoot({
       inject: [ConfigService],
     }),
     GraphQLModule.forRoot({
+      context: ({ req, res }) => ({ req, res }),
       autoSchemaFile: true,
+      resolverValidationOptions: {
+        requireResolversForResolveType: false,
+      },
+      introspection: true,
     }),
     UsersModule,
     OrganizationsModule,

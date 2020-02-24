@@ -15,19 +15,19 @@ export class AuthResolver {
     private readonly usersRepository: Repository<User>,
   ) {}
 
-  @Mutation()
+  @Mutation(returns => User)
   async login(
-    @Args('loginInput') { email, password }: UserInput,
+    @Args('loginInput') loginInput: UserInput,
     @ResGql() res: Response,
   ) {
     const user = await this.usersRepository.findOne({
-      where: { email: email },
+      where: { email: loginInput.email },
     });
     if (!user) {
       throw Error('Email or password incorrect');
     }
 
-    const valid = user.comparePassword(password);
+    const valid = user.comparePassword(loginInput.password);
     if (!valid) {
       throw Error('Email or password incorrect');
     }
@@ -38,7 +38,7 @@ export class AuthResolver {
     return user;
   }
 
-  @Mutation()
+  @Mutation(returns => User)
   async signup(
     @Args('signUpInput') signUpInputDto: UserInput,
     @ResGql() res: Response,
