@@ -18,10 +18,10 @@ export class User {
   @PrimaryGeneratedColumn()
   @Field(type => ID)
   id: number;
-  @Column({ name: 'first_name' })
+  @Column({ name: 'first_name', nullable: true })
   @Field({ nullable: true })
   firstName: string;
-  @Column({ name: 'last_name' })
+  @Column({ name: 'last_name', nullable: true })
   @Field({ nullable: true })
   lastName: string;
   @Column()
@@ -29,7 +29,7 @@ export class User {
   email: string;
   @Column()
   password: string;
-  @Column()
+  @Column({ nullable: true})
   @Field({ nullable: true })
   about: string;
   @OneToMany(

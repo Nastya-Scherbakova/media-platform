@@ -13,6 +13,7 @@ import { RelationsModule } from './relations/relations.module';
 import { SharedModule } from './shared/shared.module';
 import configuration from './config/app.config';
 import { RolesGuard } from './shared/guards/roles.guard';
+import { SeedModule } from './seed/seed.module';
 
 const AppConfigModule = ConfigModule.forRoot({
   load: [configuration],
@@ -46,6 +47,7 @@ const AppConfigModule = ConfigModule.forRoot({
     RolesModule,
     RelationsModule,
     SharedModule,
+    SeedModule,
   ],
   providers: [
     {

@@ -13,8 +13,8 @@ export class Organization {
   @Column()
   @Field()
   name: string;
-  @Column()
-  @Field()
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   mainImageLink: string;
   @OneToMany(
     type => OrganizationUser,
