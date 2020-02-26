@@ -7,8 +7,8 @@ import { ConfigService } from '@nestjs/config';
 
 const cookieExtractor = (req: Request): string | null => {
   let token = null;
-  if (req && req.cookies) {
-    token = req.cookies.token;
+  if (req && (req.cookies || req.headers.cookie)) {
+    token = req.cookies?.token || req.headers.cookie.replace('token=', '');
   }
   return token;
 };

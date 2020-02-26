@@ -12,7 +12,6 @@ import { RolesModule } from './roles/roles.module';
 import { RelationsModule } from './relations/relations.module';
 import { SharedModule } from './shared/shared.module';
 import configuration from './config/app.config';
-import { RolesGuard } from './shared/guards/roles.guard';
 import { SeedModule } from './seed/seed.module';
 
 const AppConfigModule = ConfigModule.forRoot({
@@ -48,12 +47,6 @@ const AppConfigModule = ConfigModule.forRoot({
     RelationsModule,
     SharedModule,
     SeedModule,
-  ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
   ],
 })
 export class AppModule {}

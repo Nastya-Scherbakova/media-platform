@@ -14,9 +14,10 @@ import { OrganizationUser } from '../models/db/relations/organization-user.entit
 import { EventUser } from '../models/db/relations/event-user.entity';
 import { UserAttachment } from '../models/db/relations/user-attachment.entity';
 import { UserInput } from './models/user.input';
-import { UseGuards } from '@nestjs/common';
+import { UseGuards, SetMetadata } from '@nestjs/common';
 import { GqlAuthGuard } from '../shared/guards/auth.guard';
-import { Roles } from '../shared/decorators/decorators';
+import { Roles, GqlUser } from '../shared/decorators/decorators';
+import { RolesGuard } from '../shared/guards/roles.guard';
 
 @Resolver(of => User)
 export class UsersResolver {
@@ -34,12 +35,18 @@ export class UsersResolver {
   ) {}
 
   @Query(returns => User, { name: 'user' })
+  @UseGuards(GqlAuthGuard)
+  async getCurrentUser(@GqlUser() user: User) {
+    return user;
+  }
+
+  @Query(returns => User, { name: 'user' })
   async getUser(@Args('id') id: number) {
     return this.usersRepository.findOne(id);
   }
 
   @Mutation(returns => User)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles('admin')
   async createUser(@Args('userInput') userInput: UserInput) {
     return this.usersRepository.save({ ...userInput });

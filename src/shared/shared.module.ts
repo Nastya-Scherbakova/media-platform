@@ -12,6 +12,9 @@ import { EventOrganization } from '../models/db/relations/event-organization.ent
 import { OrganizationUser } from '../models/db/relations/organization-user.entity';
 import { EventUser } from '../models/db/relations/event-user.entity';
 import { Event } from '../models/db/event.entity';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
